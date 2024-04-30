@@ -1,0 +1,19 @@
+/* Define Brand Main color */
+*:active {
+  color: #1d3d57;
+}
+
+/* Hide Streamlit menu */
+#MainMenu {
+  visibility: hidden;
+}
+
+/* Hide Header */
+header {
+  visibility: hidden;
+}
+
+/* Hide Footer */
+footer {
+  visibility: hidden;
+}
