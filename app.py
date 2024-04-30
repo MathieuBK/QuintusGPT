@@ -61,7 +61,6 @@ with col2:
 with col2:
     col1, col2 = st.columns([1,100])
     col2.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraînée sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinents pour approfondir le sujet.")
-    # col2.write("Bonjour, je suis QuintusGPT, votre IA experte en cybersécurité. J'ai été entraînée sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) (Agence Nationale de la Sécurité des Systèmes d'Information). Posez-moi vos questions, et je ferai de mon mieux pour y répondre en vous fournissant les liens d'articles pertinentes pour approfondir le sujet.")
 
 
 # --- CHAT HISTORY & MESSAGE MANAGEMENT LOGIC --- #  
@@ -79,53 +78,8 @@ def construct_messages(history):
     
     return messages
 
+
 # Generate response to user prompt
-# def generate_response():
-#     st.session_state.history.append({
-#         "message": st.session_state.prompt,
-#         "is_user": True,
-#     })
-    
-
-#     print(f"Query: {st.session_state.prompt}")
-#     unique_sources = set()  # Use a set to store unique source titles
-
-#     # Perform semantic search and format results
-#     search_results = semantic_search(st.session_state.prompt, index, top_k=3)
-
-#     print(f"Results: {search_results}")
-
-#     context = ""
-#     for i, (title, transcript, source) in enumerate(search_results):
-#         context += f"Snippet from: {title}\n {transcript}\n\n"
-#         unique_sources.add(source)  # Add unique source urls to the set
-        
-
-#     # Generate human prompt template and convert to API message format
-#     query_with_context = prompts.human_template.format(query=st.session_state.prompt, context=context)
-
-#     # Convert chat history to a list of messages
-#     messages = construct_messages(st.session_state.history)
-#     messages.append({"role": "user", "content": query_with_context})
-
-#     # Run the LLMChain
-#     response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
-#     print(messages)
-
-#     # Parse response
-#     bot_response = response["choices"][0]["message"]["content"]
-
-#     # Add source titles to the bot response
-#     sources_text = "Source(s): " + ", <br>".join(unique_sources)
-#     bot_response_with_sources = bot_response + "\n\n <br>" + sources_text
-
-#     st.session_state.history.append({
-#         "message": bot_response_with_sources,
-#         "is_user": False
-#     })
-
-#     st.session_state.prompt = ''
-
 def generate_response():
     st.session_state.history.append({
         "message": st.session_state.prompt,
