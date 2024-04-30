@@ -60,7 +60,7 @@ with col2:
 # QuintusGPT - Descriptive introduction for user 
 with col2:
     col1, col2 = st.columns([1,100])
-    col2.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraînée sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la sécurité informatique, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinents pour approfondir le sujet.")
+    col2.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraînée sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinents pour approfondir le sujet.")
     # col2.write("Bonjour, je suis QuintusGPT, votre IA experte en cybersécurité. J'ai été entraînée sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) (Agence Nationale de la Sécurité des Systèmes d'Information). Posez-moi vos questions, et je ferai de mon mieux pour y répondre en vous fournissant les liens d'articles pertinentes pour approfondir le sujet.")
 
 
