@@ -2,7 +2,7 @@ import os
 import openai
 import streamlit as st
 from dotenv import load_dotenv
-
+import groq
 
 # --- LOAD ENVIRONMENT VARIABLES --- # 
 load_dotenv()
@@ -12,6 +12,9 @@ load_dotenv()
 
 # Load OPENAI_API_KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# --- LOAD GROQ API KEY --- # 
+groq.api_key = os.getenv("GROQ_API_KEY")
 
 # Load PINECONE_API_KEY
 api_key_pinecone = os.getenv("PINECONE_API_KEY")
@@ -26,25 +29,39 @@ pinecone_endpoint = os.getenv("PINECONE_ENDPOINT")
 
 # --- RETRIEVAL AUGMENTED GENERATION --- # 
 
-# Create embeddings from user query & QuintusGPT reponses 
-def get_embeddings_openai(text):
+
+# Create embeddings from user query & GPT reponses 
+def get_embeddings_faiss(text):
     try:
+        # Generate or retrieve embeddings compatible with Faiss
+        # Example: Use OpenAI API to obtain text embeddings
         response = openai.Embedding.create(
             input=text,
-            model="text-embedding-ada-002"
+            model="text-embedding-3-small"
         )
-        response = response['data']
-        return [x["embedding"] for x in response]
+        embeddings = [x["embedding"] for x in response['data']]
+        return embeddings
     except Exception as e:
-        print(f"Error in get_embeddings_openai: {e}")
+        print(f"Error in get_embeddings_faiss: {e}")
         raise
 
-# Semantic search in PINECONE Database
+
+def initialize_faiss_index(embeddings):
+    try:
+        d = len(embeddings[0])  # Dimension of the embeddings
+        index = faiss.IndexFlatL2(d)  # Initialize a flat index with L2 distance
+        index.add(embeddings)  # Add your embeddings to the index
+        return index
+    except Exception as e:
+        print(f"Error in initialize_faiss_index: {e}")
+        raise
+
+
 def semantic_search(query, index, **kwargs):
     try:
-        xq = get_embeddings_openai(query)
+        xq = get_embeddings_faiss(query)  # Get embeddings for the query
 
-        xr = index.query(vector=xq[0], top_k=kwargs.get('top_k', 3), include_metadata=kwargs.get('include_metadata', True))
+        xr = index.query(vector=xq[0], top_k=kwargs.get('top_k', 3), include_metadata=kwargs.get('include_metadata', True)) # Search for nearest neighbors
 
         if xr.error:
             print(f"Invalid response: {xr}")
