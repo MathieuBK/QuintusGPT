@@ -39,8 +39,8 @@ with open('./styles/style.css') as f:
 
 
 # --- GOOGLE ANALYTICS --- # 
-st.markdown(
-    """
+
+google_analytics_js = """
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-6XWJR6PYVD"></script>
 <script>
@@ -50,10 +50,11 @@ st.markdown(
 
   gtag('config', 'G-6XWJR6PYVD');
 </script>
+    """
 
-""",
-    unsafe_allow_html=True,
-)
+#st.components.v1.html(google_analytics_js)
+st.components.v1.iframe('https://quentinroiseux-gpt.streamlit.app/google_analytics.html', height=1, scrolling=False)
+
 
 # --- LOAD OPENAI API KEY --- # 
 openai.api_key = os.getenv("OPENAI_API_KEY")
