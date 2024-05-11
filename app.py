@@ -38,22 +38,15 @@ with open('./styles/style.css') as f:
 # )
 
 
-# --- GOOGLE ANALYTICS --- # 
+# --- ANALYTICS --- # 
 
-google_analytics_js = """
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-6XWJR6PYVD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+st.markdown("""
+<a title="Google Analytics Alternative" href="https://clicky.com/101453092"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
+<script async data-id="101453092" src="//static.getclicky.com/js"></script>
 
-  gtag('config', 'G-6XWJR6PYVD');
-</script>
-    """
-
-#st.components.v1.html(google_analytics_js)
-st.components.v1.iframe('https://quentinroiseux-gpt.streamlit.app/google_analytics.html', height=1, scrolling=False)
+    """,
+    unsafe_allow_html=True,
+)
 
 
 # --- LOAD OPENAI API KEY --- # 
