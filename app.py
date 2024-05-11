@@ -41,10 +41,8 @@ with open('./styles/style.css') as f:
 # --- ANALYTICS --- # 
 
 st.markdown("""
-<a title="Google Analytics Alternative" href="https://clicky.com/101453092"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif" border="0" /></a>
-<script async data-id="101453092" src="//static.getclicky.com/js"></script>
-
-    """,
+<script async data-id="101453092" src="/cf0ef6d459a7.js"></script>
+""",
     unsafe_allow_html=True,
 )
 
