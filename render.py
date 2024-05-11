@@ -1,27 +1,31 @@
 import streamlit as st
 import re
 
+
 # Load and cache images
 quintus_image = ("https://i.postimg.cc/FKrBW1M5/Quintus-outlined-min.png")
-avatar_image = ("https://i.postimg.cc/xdFvvhbG/avatar-default.png")
+# avatar_image = ("https://i.postimg.cc/xdFvvhbG/avatar-default.png")
+avatar_image = ("https://i.postimg.cc/CxGM8gnX/avatar-default-2.png")
 
-# --- QUINTUS GPT MESSAGES --- #  
+
+# --- GPT MESSAGES --- #  
 bot_msg_container_html_template = f'''
-<div style='padding: 10px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: flex-start; gap:5px'>
-    <img src="{quintus_image}" style="max-height: 50px; max-width: 50px; border-radius: 50%; z-index:3; display: flex; justify-self: flex-start;">
-    <div style="background-color: #F0F2F6; color:#262730; justify-content: center; border-radius: 8px; text-align: left; padding-top: 10px; padding-left: 25px; padding-bottom: 0px; padding-right: 20px;">
+<div style='padding: 10px; border-radius: 5px; margin-bottom: 10px; display: flex; align-items: flex-start; gap:5px;'>
+    <img src="{quintus_image}" style="max-height: 32px; max-width: 32px; border-radius: 50%; z-index:3; display: flex; justify-self: flex-start;">
+    <div style="background-color: #F0F2F6; color:#262730; justify-content: center; border-radius: 8px; text-align: left; padding-top: 10px; padding-left: 25px; padding-bottom: 10px; padding-right: 20px;">
         $MSG
     </div>
 </div>
 '''
 
+
 # --- USERS MESSAGES --- #  
 user_msg_container_html_template = f'''
-<div style='padding: 10px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: flex-end; gap:5px'>
-    <div style="width: auto; background-color: #F0F2F6; color:#262730; border-radius: 8px; padding-top: 10px; padding-left: 20px; padding-bottom: 10px; padding-right: 20px">
+<div style='padding: 10px; border-radius: 5px; margin-bottom: 10px; display: flex; justify-content: flex-end; gap:5px; align-items: flex-start;'>
+    <div style="width: auto; background-color: #5082ef; color:#fff; border-radius: 8px; padding-top: 10px; padding-left: 20px; padding-bottom: 10px; padding-right: 20px">
         $MSG
     </div>
-    <img src="{avatar_image}" style="max-width: 50px; max-height: 50px; float: right; border-radius: 50%; z-index:3; display: flex; justify-self: flex-end;">   
+    <img src="{avatar_image}" style="max-width: 32px; max-height: 32px; float: right; border-radius: 50%; z-index:3; display: flex; justify-self: flex-end;">   
 </div>
 '''
 
@@ -51,7 +55,7 @@ def render_earnings_summary(ticker, summary):
     message += "</div>"
     return message
 
-# User Interface - Organize Messages depending if it comes from QuintusGPT or the User
+# User Interface - Organize Messages depending if it comes from AmbroiseGPT or the User
 def render_chat(**kwargs):
     """
     Handles is_user 
@@ -68,4 +72,3 @@ def render_chat(**kwargs):
     if "figs" in kwargs:
         for f in kwargs["figs"]:
             st.plotly_chart(f, use_container_width=True)
-
