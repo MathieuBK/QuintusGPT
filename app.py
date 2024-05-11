@@ -89,7 +89,7 @@ if "history" not in st.session_state:
 if not st.session_state.submitted_query:
 
     # Split Page into 2 columns
-    col1, col2 = st.columns([1.35, 3])
+    col1, col2 = st.columns([1.15, 3])
 
     # Display GPT Avatar
     with col1:
@@ -160,7 +160,7 @@ def generate_response():
 
     
     # Split Page into 2 columns
-    col1, col2 = st.columns([1,3])
+    col1, col2 = st.columns([1.15,3])
 
 
     # Display GPT Avatar
