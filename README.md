@@ -35,6 +35,10 @@ pip install -r requirements.txt
 ```
 4. Set up the environment variables:
 - `OPENAI_API_KEY`: Your OpenAI API key
+- `GROQ_API_KEY`: Your Groq API key
+- `MONGO_DB_URI`: Your MongoDB URI connection string
+- `MONGO_DB_DATABASE_NAME`: Your MongoDB database name
+- `MONGO_DB_COLLECTION_NAME`: Your MongoDB database collection name
 - `PINECONE_API_KEY`: Your Pinecone API key
 - `PINECONE_ENVIRONMENT`: Your Pinecone environment details
 - `PINECONE_INDEX_NAME`: Your Pinecone index details
