@@ -38,7 +38,7 @@ def GPTplaceholder():
         col2a.header("🔒 QuintusGPT") # 🛡️🔒
 
         # GPT - Descriptive introduction for user 
-        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources complémentaires pour approfondir le sujet.")
+        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant des sources complémentaires pour approfondir le sujet.")
     
 
 # --- LOAD CSS STYLE --- # 
