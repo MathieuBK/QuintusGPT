@@ -19,6 +19,28 @@ load_dotenv()
 st.set_page_config(page_title="QuintusGPT", page_icon=":lock:", initial_sidebar_state="collapsed") #  🛡️	:shield:
 
 
+# --- SET UP GPT PLACEHOLDER --- # 
+def GPTplaceholder():
+    # Split Page into 2 columns
+    col1, col2 = st.columns([1.15, 3])
+
+    # Display GPT Avatar
+    with col1:
+        st.write("")
+        col1.image(
+            "assets/Quintus_outlined-min.png",
+            # Manually Adjust the width of the image as per requirement
+        )
+
+    # Display GPT Name & description
+    with col2:
+        col1a, col2a = st.columns([0.01,10000])    
+        col2a.header("🔒 QuintusGPT") # 🛡️🔒
+
+        # GPT - Descriptive introduction for user 
+        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinentes pour approfondir le sujet.")
+    
+
 # --- LOAD CSS STYLE --- # 
 with open('./styles/style.css') as f:
     css = f.read()
@@ -85,29 +107,6 @@ if "history" not in st.session_state:
     st.session_state.submitted_query = False  # Track if the user has submitted a query
 
 
-# Display avatar and description only if no query has been submitted
-if not st.session_state.submitted_query:
-
-    # Split Page into 2 columns
-    col1, col2 = st.columns([1.15, 3])
-
-    # Display GPT Avatar
-    with col1:
-        st.write("")
-        col1.image(
-            "assets/Quintus_outlined-min.png",
-            # Manually Adjust the width of the image as per requirement
-        )
-
-    # Display GPT Name & description
-    with col2:
-        col1a, col2a = st.columns([0.01,10000])    
-        col2a.header("🔒 QuintusGPT") # 🛡️🔒
-
-        # GPT - Descriptive introduction for user 
-        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinentes pour approfondir le sujet.")
-
-
 # Sidebar for selecting the model (disabled by default)
 model_options = ["OpenAI - GPT-3.5-turbo", "Groq - Mixtral-8x7b-32768", "Groq - Llama3-8b-8192"]
 selected_model = st.sidebar.selectbox("Select Model", model_options, index=0, disabled=True)
@@ -159,28 +158,9 @@ def generate_response():
     query_with_context = prompts.human_template.format(query=st.session_state.prompt, context=context)
 
     
-    # Split Page into 2 columns
-    col1, col2 = st.columns([1.15,3])
-
-
     # Display GPT Avatar
-    with col1:
-        st.write("")
-        col1.image(
-                "assets/Quintus_outlined-min.png",
-                # Manually Adjust the width of the image as per requirement
-                )
-
-    # Display GPT Name & description
-    with col2:
-        col1a, col2a = st.columns([0.01,10000])    
-        col2a.header("🔒 QuintusGPT") # 🛡️🔒
-
-    # GPT - Descriptive introduction for user 
-    with col2:
-        col1a, col2a = st.columns([1,100])
-        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinentes pour approfondir le sujet.")
-
+    GPTplaceholder()
+    
 
     # Create chat history messages
     messages = [{"role": "system", "content": prompts.system_message}]
