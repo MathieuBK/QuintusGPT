@@ -103,6 +103,7 @@ collection = db[os.getenv("MONGO_DB_COLLECTION_NAME")]
 
 # Define chat history storage and track if a query has been submitted
 if "history" not in st.session_state:
+    GPTplaceholder()
     st.session_state.history = []
     st.session_state.submitted_query = False  # Track if the user has submitted a query
 
