@@ -158,6 +158,8 @@ def generate_response():
     # Generate human prompt template and convert to API message format
     query_with_context = prompts.human_template.format(query=st.session_state.prompt, context=context)
 
+    # Split Page into 2 columns
+    col1, col2 = st.columns([1,3])
     
     # Display GPT Avatar
     GPTplaceholder()
