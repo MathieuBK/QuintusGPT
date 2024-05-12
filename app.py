@@ -150,8 +150,8 @@ def generate_response():
         unique_sources.add(source)  # Add unique source urls to the set
 
     # Convert set of unique sources to a formatted string
-    # sources_text = "Source(s): " + ", ".join(f"[{source}](https://bit.ly/cybersecurity-best-practice-guide)" for source in unique_sources)
-    sources_text = "Source(s): " + ", ".join(f"[{source}]({source})" for source in unique_sources)
+    # sources_text = "\n\n </br> Source(s): " + ", ".join(f"[{source}](https://bit.ly/cybersecurity-best-practice-guide)" for source in unique_sources)
+    sources_text = "\n\n </br> Source(s): " + ", ".join(f"[{source}]({source})" for source in unique_sources)
     # sources_text = "</br>" + "Source(s): " + ", ".join(f"[{source}]({source}?utm_medium=&utm_source=affiliate-mc&utm_campaign=affiliate-mc-bekkaye&utm_content=&utm_keyword=&source=affiliate&campagne=affiliate-mc-bekkaye)" for source in unique_sources)
     
 
