@@ -11,6 +11,8 @@ import time
 import pymongo
 
 
+
+
 # --- LOAD ENVIRONMENT VARIABLES --- # 
 load_dotenv()
 
@@ -38,7 +40,7 @@ def GPTplaceholder():
         col2a.header("🔒 QuintusGPT") # 🛡️🔒
 
         # GPT - Descriptive introduction for user 
-        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant des sources complémentaires pour approfondir le sujet.")
+        col2a.write("Bonjour, je suis QuintusGPT, votre assistant IA en cybersécurité. J'ai été entraîné sur les pages du [site de l'ANSSI](https://cyber.gouv.fr/) - *L'Agence Nationale de la Sécurité des Systèmes d'Information*. Posez-moi vos questions sur la cybersécurité, et je ferai de mon mieux pour y répondre en vous fournissant les liens de sources pertinentes pour approfondir le sujet.")
     
 
 # --- LOAD CSS STYLE --- # 
@@ -76,9 +78,15 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 # --- LOAD GROQ API KEY --- # 
 groq.api_key = os.getenv("GROQ_API_KEY")
 
-
 # Initialize Groq client
 groq = Groq(api_key=groq.api_key)
+
+
+# --- LOAD ANYSCALE API KEY --- # 
+anyscale_api_key = os.getenv("ANYSCALE_API_KEY")
+
+# Initialize Groq client
+anyscale = Groq(api_key=anyscale_api_key)
 
 
 # --- LOAD PINECONE API KEY --- # 
@@ -97,6 +105,7 @@ db = client[os.getenv("MONGO_DB_DATABASE_NAME")]
 
 # Access the specific collection within the database
 collection = db[os.getenv("MONGO_DB_COLLECTION_NAME")]
+disabled_parameters = False
 
 
 ### ------ ////// GPT MAIN APP \\\\\\ ------ #### 
@@ -109,9 +118,19 @@ if "history" not in st.session_state:
 
 
 # Sidebar for selecting the model (disabled by default)
-model_options = ["OpenAI - GPT-3.5-turbo", "Groq - Mixtral-8x7b-32768", "Groq - Llama3-8b-8192"]
-selected_model = st.sidebar.selectbox("Select Model", model_options, index=0, disabled=True)
-
+model_options = ["OpenAI - GPT-3.5-turbo", "Groq - Mixtral-8x7b-32768", "Groq - Llama3-8b-8192", "Google - Gemma-7B"]
+selected_model = st.sidebar.selectbox("Select Model", model_options, index=0, disabled=disabled_parameters)
+with st.sidebar:
+    st.caption("---")
+    temperature = st.slider(label="Temperature", min_value=0.0, max_value=1.0, value=0.7, step=0.02, disabled=disabled_parameters)
+    st.write(" ")
+    max_tokens = st.slider(label="Max Tokens", min_value=0, max_value=8162, value=2048, step=32, disabled=disabled_parameters)
+    st.write(" ")
+    top_p = st.slider(label="Top P", min_value=0.0, max_value=1.0, value=1.0, step=0.01, disabled=disabled_parameters)
+    st.write(" ")
+    top_k = st.slider(label="Top K", min_value=1, max_value=100, value=40, step=1, disabled=disabled_parameters)
+    st.write(" ")
+    frequency_penalty = st.slider(label="Frequency penalty", min_value=-2.0, max_value=2.0, value=0.0, step=0.04, disabled=disabled_parameters)
 
 # Function to construct chat messages from history
 def construct_messages(history):
@@ -150,8 +169,8 @@ def generate_response():
         unique_sources.add(source)  # Add unique source urls to the set
 
     # Convert set of unique sources to a formatted string
-    # sources_text = "</br>" + "Source(s): " + ", ".join(f"[{source}](https://bit.ly/cybersecurity-best-practice-guide)" for source in unique_sources)
-    sources_text = "</br>" + "Source(s): " + ", ".join(f"[{source}]({source})" for source in unique_sources)
+    # sources_text = "Source(s): " + ", ".join(f"[{source}](https://bit.ly/cybersecurity-best-practice-guide)" for source in unique_sources)
+    sources_text = "Source(s): " + ", ".join(f"[{source}]({source})" for source in unique_sources)
     # sources_text = "</br>" + "Source(s): " + ", ".join(f"[{source}]({source}?utm_medium=&utm_source=affiliate-mc&utm_campaign=affiliate-mc-bekkaye&utm_content=&utm_keyword=&source=affiliate&campagne=affiliate-mc-bekkaye)" for source in unique_sources)
     
 
@@ -173,13 +192,19 @@ def generate_response():
     
     # Determine which model to use for response generation
     if selected_model == "OpenAI - GPT-3.5-turbo":
-        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, stream=True)
+        response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
 
     elif selected_model == "Groq - Mixtral-8x7b-32768":
-        response = groq.chat.completions.create(model="mixtral-8x7b-32768", messages=messages, stream=True)
+        response = groq.chat.completions.create(model="mixtral-8x7b-32768", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
 
     elif selected_model == "Groq - Llama3-8b-8192":
-        response = groq.chat.completions.create(model="llama3-8b-8192", messages=messages, stream=True)
+        response = groq.chat.completions.create(model="llama3-8b-8192", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
+
+    elif selected_model == "Google - Gemma-7B":
+        response = groq.chat.completions.create(model="gemma-7b-it", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
+
+    from langchain_groq import ChatGroq
+    ChatGroq()
 
     print(f"Response : {response}")
 
@@ -226,6 +251,10 @@ def generate_response():
 
 
         elif selected_model == "Groq - Llama3-8b-8192":
+            bot_response_with_sources += chunk.choices[0].delta.content or ""  # Example, assuming 'message' holds the bot response in Groq response
+
+
+        elif selected_model == "Google - Gemma-7B":
             bot_response_with_sources += chunk.choices[0].delta.content or ""  # Example, assuming 'message' holds the bot response in Groq response
 
 
