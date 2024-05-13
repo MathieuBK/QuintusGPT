@@ -105,7 +105,7 @@ db = client[os.getenv("MONGO_DB_DATABASE_NAME")]
 
 # Access the specific collection within the database
 collection = db[os.getenv("MONGO_DB_COLLECTION_NAME")]
-disabled_parameters = False
+disabled_parameters = True
 
 
 ### ------ ////// GPT MAIN APP \\\\\\ ------ #### 
