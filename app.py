@@ -172,16 +172,12 @@ def generate_response():
     # sources_text = "Source(s): " + ", ".join(f"[{source}](https://bit.ly/cybersecurity-best-practice-guide)" for source in unique_sources)
     sources_text = "Source(s): " + ", ".join(f"[{source}]({source})" for source in unique_sources)
     # sources_text = "</br>" + "Source(s): " + ", ".join(f"[{source}]({source}?utm_medium=&utm_source=affiliate-mc&utm_campaign=affiliate-mc-bekkaye&utm_content=&utm_keyword=&source=affiliate&campagne=affiliate-mc-bekkaye)" for source in unique_sources)
-    
 
+    
     # Generate human prompt template and convert to API message format
     query_with_context = prompts.human_template.format(query=st.session_state.prompt, context=context)
 
     
-    # Display GPT Avatar
-    GPTplaceholder()
-    
-
     # Create chat history messages
     messages = [{"role": "system", "content": prompts.system_message}]
     for entry in st.session_state.history:
@@ -203,10 +199,13 @@ def generate_response():
     elif selected_model == "Google - Gemma-7B":
         response = groq.chat.completions.create(model="gemma-7b-it", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
 
-    from langchain_groq import ChatGroq
-    ChatGroq()
+    # from langchain_groq import ChatGroq
+    # ChatGroq()
 
     print(f"Response : {response}")
+
+    # Display GPT Avatar
+    GPTplaceholder()
 
      # Display user input and bot responses sequentially
     for message in st.session_state.history:
