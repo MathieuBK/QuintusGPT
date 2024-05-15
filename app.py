@@ -118,7 +118,7 @@ if "history" not in st.session_state:
 
 
 # Sidebar for selecting the model (disabled by default)
-model_options = ["OpenAI - GPT-3.5-turbo", "Groq - Mixtral-8x7b-32768", "Groq - Llama3-8b-8192", "Google - Gemma-7B"]
+model_options = ["OpenAI - GPT-3.5-turbo", "Groq - Mixtral-8x7b-32768", "Groq - Llama3-70b-8192", "Google - Gemma-7B"]
 selected_model = st.sidebar.selectbox("Select Model", model_options, index=0, disabled=disabled_parameters)
 with st.sidebar:
     st.caption("---")
@@ -193,8 +193,8 @@ def generate_response():
     elif selected_model == "Groq - Mixtral-8x7b-32768":
         response = groq.chat.completions.create(model="mixtral-8x7b-32768", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
 
-    elif selected_model == "Groq - Llama3-8b-8192":
-        response = groq.chat.completions.create(model="llama3-8b-8192", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
+    elif selected_model == "Groq - Llama3-70b-8192":
+        response = groq.chat.completions.create(model="llama3-70b-8192", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
 
     elif selected_model == "Google - Gemma-7B":
         response = groq.chat.completions.create(model="gemma-7b-it", messages=messages, stream=True, temperature=temperature, max_tokens=max_tokens)
@@ -249,7 +249,7 @@ def generate_response():
             bot_response_with_sources += chunk.choices[0].delta.content or ""  # Example, assuming 'message' holds the bot response in Groq response
 
 
-        elif selected_model == "Groq - Llama3-8b-8192":
+        elif selected_model == "Groq - Llama3-70b-8192":
             bot_response_with_sources += chunk.choices[0].delta.content or ""  # Example, assuming 'message' holds the bot response in Groq response
 
 
